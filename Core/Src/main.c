@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -38,7 +39,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+char data[1];
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -55,7 +56,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-unsigned char e, x[] = "toggle the led C13\n" ;
+
 /* USER CODE END 0 */
 
 /**
@@ -86,10 +87,12 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART1_UART_Init();
+  MX_TIM1_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-char d[]= "hello the fucking world\n";
-HAL_UART_Receive_IT(&huart1, &e, 1);
+	HAL_UART_Receive_IT(&huart3, data, 1);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -99,8 +102,37 @@ HAL_UART_Receive_IT(&huart1, &e, 1);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_UART_Transmit(&huart1, (unsigned char *)&d, sizeof(d), 1000);
-				HAL_Delay(1000);
+ if( data[0] == 'f')
+	  {
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 1);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
+		}
+	  if( data[0] =='b')
+	  {
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_4);
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
+		HAL_Delay(100);
+		}
+	  if( data[0] == 'l')
+	  { 
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
+		HAL_Delay(100);
+		}
+	  if(data[0]== 'r')
+	  { 
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_4);
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+		HAL_Delay(100);
+		}
+	
+	 
+		
+		
   }
   /* USER CODE END 3 */
 }
@@ -142,17 +174,42 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-	if(huart-> Instance == huart1.Instance)
-		{
-			HAL_UART_Receive_IT(&huart1, &e, 1);
-			if(e == 'd')
-				{
-					HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-					HAL_UART_Transmit(&huart1, x, sizeof(x), 1000);
-				}
+	{
+		
+		 HAL_UART_Receive_IT(&huart3, data, 1);
+		 if( data[0] == 'i')
+	  { 
+		stop();
 		}
-}
+	  if( data[0] == 'f')
+	  {
+		straight();
+			HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_4);
+
+		
+		}
+	  if( data[0] =='b')
+	  {
+		back();
+
+		}
+	  if( data[0] == 'l')
+	  { 
+		left();
+		
+		}
+	  if(data[0]== 'r')
+	  { 
+		right();
+		
+		}
+	  if(data[0] == 's')
+	  { 
+		nitro();
+		}
+		
+	
+	}
 /* USER CODE END 4 */
 
 /**

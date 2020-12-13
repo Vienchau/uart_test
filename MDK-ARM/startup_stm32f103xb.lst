@@ -462,13 +462,13 @@ ARM Macro Assembler    Page 8
               00000000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=refresh_uart\startup_stm32f103xb.d -orefresh_uart\startup_stm32f10
-3xb.o -I.\RTE\_REFRESH_UART -ID:\MY_WORK\tai_lieu\STM32_COBAN\DOFT\Soft\KeilCv5
-\KeilCv5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -ID:\MY_WORK\tai_lieu\STM3
-2_COBAN\DOFT\Soft\KeilCv5\KeilCv5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Incl
-ude --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 524" --
-predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --list=startup_stm32
-f103xb.lst startup_stm32f103xb.s
+ork --depend=final_robot\startup_stm32f103xb.d -ofinal_robot\startup_stm32f103x
+b.o -I.\RTE\_FINAL_ROBOT -ID:\MY_WORK\tai_lieu\STM32_COBAN\DOFT\Soft\KeilCv5\Ke
+ilCv5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -ID:\MY_WORK\tai_lieu\STM32_C
+OBAN\DOFT\Soft\KeilCv5\KeilCv5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include
+ --predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVI
+SION_VERSION SETA 524" --predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SET
+A 1" --list=startup_stm32f103xb.lst startup_stm32f103xb.s
 
 
 
@@ -1175,4 +1175,4 @@ Symbol: __main
       At line 135 in file startup_stm32f103xb.s
 Comment: __main used once
 2 symbols
-406 symbols in table
+407 symbols in table
